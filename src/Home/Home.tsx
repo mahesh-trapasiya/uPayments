@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ProductCard from "../Components/ProductCard/ProductCard";
+import debounce from "lodash/debounce";
+import { FaPlus } from "react-icons/fa";
 
 export default function Home(): JSX.Element {
   const [products, setProducts] = useState<Array<Product>>([]);
@@ -47,6 +49,27 @@ export default function Home(): JSX.Element {
       setFiltredProducts(filtredProducts);
     }
   };
+
+  const deleteProduct = (id: any) => {
+    axios
+      .delete(
+        `https://62286b649fd6174ca82321f1.mockapi.io/case-study/products/${id}`
+      )
+      .then((res) => {
+        getProducts();
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
+  const searchProduct = debounce((e) => {
+    const filtredProducts = products.filter((product: any) =>
+      product.name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setFiltredProducts(filtredProducts);
+  }, 1000);
+
   return (
     <div>
       {isLoading ? (
@@ -55,12 +78,13 @@ export default function Home(): JSX.Element {
         </div>
       ) : (
         <div className="mt-10">
-          <div className="flex items-center justify-between bg-transparent px-8 pt-6 pb-8 mb-4">
+          <div className="flex items-center justify-between bg-transparent px-8 pt-6 pb-8 mb-4  search-input">
             <input
               className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-last-name"
               type="text"
-              placeholder="Doe"
+              placeholder="Search"
+              onChange={searchProduct}
             />
 
             <div className="relative">
@@ -91,10 +115,14 @@ export default function Home(): JSX.Element {
               </div>
             </div>
           </div>
-          <div className="flex justify-center">
-            <div className="grid grid-cols-4 gap-4">
+          <div className="container mx-auto lg:pl-48 lg:pr-48">
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
               {filtredProducts.map((product: any) => (
-                <ProductCard key={product.id} {...product} />
+                <ProductCard
+                  key={product.id}
+                  {...product}
+                  deleteProduct={deleteProduct}
+                />
               ))}
               {!filtredProducts.length && <h2>No Products Available</h2>}
             </div>
@@ -102,10 +130,10 @@ export default function Home(): JSX.Element {
         </div>
       )}
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-full text-3xl"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-full text-2xl plus-button"
         onClick={() => navigate("/product/new")}
       >
-        +
+        <FaPlus />
       </button>
     </div>
   );

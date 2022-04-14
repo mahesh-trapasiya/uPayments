@@ -35,7 +35,6 @@ export default function NewProduct(): JSX.Element {
       category: data.category,
       developerEmail: "mkt@narola.email",
     };
-    console.log("product =>", product);
     axios
       .post(
         "https://62286b649fd6174ca82321f1.mockapi.io/case-study/products",
@@ -56,6 +55,7 @@ export default function NewProduct(): JSX.Element {
         <form
           className="bg-transparent rounded px-8 pt-6 pb-8 mb-4"
           onSubmit={handleSubmit(onSubmit)}
+          id="new-product-form"
         >
           <div className="mb-4">
             <input
@@ -63,6 +63,7 @@ export default function NewProduct(): JSX.Element {
               id="pname"
               type="text"
               placeholder="Product Name"
+              data-testid="pname"
               {...register("name", { required: "Product name is required" })}
             />
             {errors.name && (
@@ -74,6 +75,8 @@ export default function NewProduct(): JSX.Element {
               className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="Description"
               placeholder="Description"
+              data-testid="description"
+
               {...register("description", {
                 required: "Description is required",
               })}
@@ -89,6 +92,7 @@ export default function NewProduct(): JSX.Element {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="iurl"
               type="text"
+              data-testid="avatar"
               placeholder="Image URL"
               {...register("avatar", {
                 required: "Product image url is required",
@@ -102,6 +106,8 @@ export default function NewProduct(): JSX.Element {
             <select
               className="capitalize block appearance-none w-full bg-white border  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-state"
+              data-testid="category"
+
               {...register("category", { required: "Category is required" })}
             >
               <option className="text-gray-400" value="" disabled selected>
@@ -128,6 +134,7 @@ export default function NewProduct(): JSX.Element {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="price"
               type="text"
+              data-testid="price"
               placeholder="Price"
               {...register("price", { required: "Price is required" })}
             />
@@ -137,8 +144,10 @@ export default function NewProduct(): JSX.Element {
           </div>
           <div className="flex items-center justify-between">
             <button
-              className="w-full bg-white hover:bg-gray-100 text-black shadow-md font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="btnsubmit w-full bg-white hover:bg-gray-100 text-black shadow-md font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
+              data-testid="submit-button"
+              id="submit-button"
             >
               Submit
             </button>

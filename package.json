@@ -11,9 +11,13 @@
     "@types/react": "^18.0.3",
     "@types/react-dom": "^18.0.0",
     "axios": "^0.26.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "lodash": "^4.17.21",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-hook-form": "^7.29.0",
+    "react-icons": "^4.3.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-uuid": "^1.0.2",
@@ -24,7 +28,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:debug": "react-scripts --inspect test --runInBand --no-cache"
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.181",
     "@types/uuid": "^8.3.4",
     "autoprefixer": "^10.4.4",
     "postcss": "^8.4.12",
