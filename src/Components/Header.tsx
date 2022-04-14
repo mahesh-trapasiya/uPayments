@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Header(): JSX.Element {
   return (
-    <nav className="flex items-center justify-between bg-white p-6 rounded-3xl">
+    <nav className="flex items-center justify-between bg-white p-6 ">
       <div className="flex items-center flex-shrink-0 text-black mr-6">
         <Link className="font-semibold text-xl tracking-tight" to="/">
           UPayments Store

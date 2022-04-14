@@ -3,8 +3,6 @@
     width: 170px;
 }
 
-
-
 .product-image-card {
     object-fit: contain;
     height    : 100% !important;
@@ -21,13 +19,15 @@
     max-width         : 170px;
 }
 
-.product-card-wrapper {
-    min-height: 300px;
+@media only screen and (max-width: 760px) {
+    .product-card-wrapper {
+        margin: 0 5%;
+    }
 }
 
 .card-image {
     height: 230px;
-    width : 200px;
+    width : 100%;
 }
 
 .card-top {

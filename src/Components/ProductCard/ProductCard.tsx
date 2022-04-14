@@ -18,24 +18,24 @@ export default function ProductCard({
   const navigate = useNavigate();
 
   return (
-    <div className="h-50 relative grid lg:col-span-1 md:col-span-2 xs:col-span-4 lg:m-5 m-5 sm:m-0 justify-center product-card-wrapper ">
+    <div className="relative justify-center product-card-wrapper bg-white rounded product-card-wrapper">
       <div
-        className="rounded card-top flex justify-center"
+        className="card-top flex justify-center"
         onClick={() => navigate(`/product/${id}`)}
       >
-        <div className="bg-white flex justify-center rounded-3xl card-image">
+        <div className="flex justify-center card-image">
           <img
-            className="w-50 p-5 object-contain product-image-card"
+            className="w-auto p-5 object-contain product-image-card"
             src={avatar}
             alt="product"
           />
         </div>
-        <div className="px-3 py-2">
+        <div className="px-3 py-2 absolute bottom-0">
           <p className="font-bold text-xl mb-2 product-title">{name}</p>
           <p className="text-gray-700 text-base">$ {price}</p>
         </div>
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center absolute top-3 right-3">
         <button
           className="text-red font-bold "
           onClick={() => deleteProduct(id)}

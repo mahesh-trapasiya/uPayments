@@ -68,7 +68,7 @@ export default function Home(): JSX.Element {
       product.name.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setFiltredProducts(filtredProducts);
-  }, 1000);
+  }, 500);
 
   return (
     <div>
@@ -78,7 +78,7 @@ export default function Home(): JSX.Element {
         </div>
       ) : (
         <div className="mt-10">
-          <div className="flex items-center justify-between bg-transparent px-8 pt-6 pb-8 mb-4  search-input">
+          <div className="flex items-center justify-between bg-transparent px-6  mb-4  search-input">
             <input
               className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-last-name"
@@ -115,8 +115,8 @@ export default function Home(): JSX.Element {
               </div>
             </div>
           </div>
-          <div className="container mx-auto lg:pl-48 lg:pr-48">
-            <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
+          <div className="container mx-auto">
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-3">
               {filtredProducts.map((product: any) => (
                 <ProductCard
                   key={product.id}

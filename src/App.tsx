@@ -8,7 +8,7 @@ import ProductDetails from "./ProductDetail/ProductDetails";
 function App() {
   return (
     <div className=" bg-gray-300 max-h-max min-h-screen relative">
-      <div className="container mx-auto pt-10 ">
+      {/* <div className="container mx-auto pt-10 "> */}
         <BrowserRouter>
           <Header />
           <Routes>
@@ -17,7 +17,7 @@ function App() {
             <Route path="/product/:id" element={<ProductDetails />} />
           </Routes>
         </BrowserRouter>
-      </div>
+      {/* </div> */}
     </div>
   );
 }
