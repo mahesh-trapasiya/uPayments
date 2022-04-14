@@ -4,18 +4,22 @@ import axios from "axios";
 import ProductCard from "../Components/ProductCard/ProductCard";
 import debounce from "lodash/debounce";
 import { FaPlus } from "react-icons/fa";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 export default function Home(): JSX.Element {
   const [products, setProducts] = useState<Array<Product>>([]);
   const [categories, setCategories] = useState<Array<Category>>([]);
   const [filtredProducts, setFiltredProducts] = useState<Array<Product>>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalActive, setIsModalActive] = useState(false);
+  const [modalSuccess, setModalSuccess] = useState(false);
+  const [productId, setProductId] = useState(null);
   const navigate = useNavigate();
 
   const getProducts = () => {
     setIsLoading(true);
     axios
-      .get("https://62286b649fd6174ca82321f1.mockapi.io/case-study/products/")
+      .get("/products/")
       .then((res) => {
         setProducts(res.data);
         setFiltredProducts(res.data);
@@ -28,11 +32,9 @@ export default function Home(): JSX.Element {
   };
 
   const getCategories = () => {
-    axios
-      .get("https://62286b649fd6174ca82321f1.mockapi.io/case-study/categories/")
-      .then((res) => {
-        setCategories(res.data);
-      });
+    axios.get("/categories/").then((res) => {
+      setCategories(res.data);
+    });
   };
   useEffect(() => {
     getProducts();
@@ -52,11 +54,11 @@ export default function Home(): JSX.Element {
 
   const deleteProduct = (id: any) => {
     axios
-      .delete(
-        `https://62286b649fd6174ca82321f1.mockapi.io/case-study/products/${id}`
-      )
+      .delete(`/products/${id}`)
       .then((res) => {
         getProducts();
+        setIsModalActive(false);
+        setModalSuccess(true);
       })
       .catch((err) => {
         alert(err);
@@ -69,7 +71,10 @@ export default function Home(): JSX.Element {
     );
     setFiltredProducts(filtredProducts);
   }, 500);
-
+  const handleDeleteModal = (id: any) => {
+    setProductId(id);
+    setIsModalActive(true);
+  };
   return (
     <div>
       {isLoading ? (
@@ -121,6 +126,7 @@ export default function Home(): JSX.Element {
                 <ProductCard
                   key={product.id}
                   {...product}
+                  handleDeleteModal={handleDeleteModal}
                   deleteProduct={deleteProduct}
                 />
               ))}
@@ -135,6 +141,24 @@ export default function Home(): JSX.Element {
       >
         <FaPlus />
       </button>
+      <SweetAlert
+        show={isModalActive}
+        warning
+        title="Are you sure?"
+        onConfirm={() => deleteProduct(productId)}
+        onCancel={() => setIsModalActive(false)}
+        confirmBtnText="Delete"
+        showCancel
+        confirmBtnCssClass="bg-red-500 text-white hover:bg-red-400  font-semibold py-2 px-4 border border-gray-400 rounded "
+        cancelBtnCssClass="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+      ></SweetAlert>
+      <SweetAlert
+        show={modalSuccess}
+        success
+        title="Product Deleted"
+        onConfirm={() => setModalSuccess(false)}
+        confirmBtnCssClass="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+      ></SweetAlert>
     </div>
   );
 }

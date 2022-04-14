@@ -13,18 +13,13 @@ export default function NewProduct(): JSX.Element {
   const navigate = useNavigate();
 
   const getCategories = () => {
-    axios
-      .get("https://62286b649fd6174ca82321f1.mockapi.io/case-study/categories/")
-      .then((res) => {
-        setCategories(res.data);
-      });
+    axios.get("/categories/").then((res) => {
+      setCategories(res.data);
+    });
   };
   useEffect(() => {
     getCategories();
   }, []);
-  const uid = function () {
-    return Date.now().toString(36) + Math.random().toString(36).substr(2);
-  };
 
   const onSubmit = (data: any) => {
     const product = {
@@ -36,10 +31,7 @@ export default function NewProduct(): JSX.Element {
       developerEmail: "mkt@narola.email",
     };
     axios
-      .post(
-        "https://62286b649fd6174ca82321f1.mockapi.io/case-study/products",
-        product
-      )
+      .post("/products", product)
       .then((res) => {
         navigate("/");
       })
@@ -76,7 +68,6 @@ export default function NewProduct(): JSX.Element {
               id="Description"
               placeholder="Description"
               data-testid="description"
-
               {...register("description", {
                 required: "Description is required",
               })}
@@ -107,7 +98,6 @@ export default function NewProduct(): JSX.Element {
               className="capitalize block appearance-none w-full bg-white border  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-state"
               data-testid="category"
-
               {...register("category", { required: "Category is required" })}
             >
               <option className="text-gray-400" value="" disabled selected>
