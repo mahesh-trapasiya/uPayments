@@ -30,7 +30,7 @@ export default function ProductCard({
             alt="product"
           />
         </div>
-        <div className="px-3 py-2 absolute bottom-0">
+        <div className="px-3 py-2 bottom-0">
           <p className="font-bold text-xl mb-2 product-title">{name}</p>
           <p className="text-gray-700 text-base">$ {price}</p>
         </div>
